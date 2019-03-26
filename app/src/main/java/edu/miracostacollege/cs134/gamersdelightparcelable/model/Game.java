@@ -162,15 +162,30 @@ public class Game implements Parcelable {
 
     /**
      * Describes any special contents of this object (like Files, video, audio)
-     * @return
+     * @return zero unless any special contents
      */
     @Override
     public int describeContents() {
         return 0;
     }
 
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mId);
+        dest.writeString(mName);
+        dest.writeString(mDescription);
+        dest.writeFloat(mRating);
+        dest.writeString(mImageName);
+    }
 
+    // Mechanism to creare (instantiate) a new Game object from a Parcel
+    // We need a private constructor to create a new Game from Parcel
+    private Game(Parcel parcel) {
+        mId = parcel.readLong();
+        mName = parcel.readString();
+        mDescription = parcel.readString();
+        mRating = parcel.readFloat();
+        mImageName = parcel.readString();
     }
 }
