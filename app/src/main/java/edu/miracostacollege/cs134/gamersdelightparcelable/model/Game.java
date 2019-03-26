@@ -188,4 +188,29 @@ public class Game implements Parcelable {
         mRating = parcel.readFloat();
         mImageName = parcel.readString();
     }
+
+    public static final  Parcelable.Creator<Game> CREATOR = new Creator<Game>() {
+
+        /**
+         * Supposed to return a game from the parcel
+         * @param source
+         * @return
+         */
+        @Override
+        public Game createFromParcel(Parcel source) {
+            return new Game(source);
+        }
+
+        /**
+         * Allows the creation of an array of game objects from a JSON file.
+         * This method repeatedly calls createFromParcel for every object.
+         * @param size
+         * @return
+         */
+        @Override
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
+
 }

@@ -31,25 +31,24 @@ public class GameDetailsActivity extends AppCompatActivity {
         RatingBar gameDetailsRatingBar = findViewById(R.id.gameDetailsRatingBar);
 
         Intent detailsIntent = getIntent();
-        String name = detailsIntent.getStringExtra("Name");
-        String description = detailsIntent.getStringExtra("Description");
-        float rating = detailsIntent.getFloatExtra("Rating", 0.0f);
-        String imageName = detailsIntent.getStringExtra("ImageName");
+
+        // Retrieve a Game object from  the intent.
+        Game game = detailsIntent.getParcelableExtra("SelectedGame");
 
 
         AssetManager am = getAssets();
         try {
-            InputStream stream = am.open(imageName);
-            Drawable image = Drawable.createFromStream(stream, name);
+            InputStream stream = am.open(game.getImageName());
+            Drawable image = Drawable.createFromStream(stream, game.getName());
             gameDetailsImageView.setImageDrawable(image);
         }
         catch (IOException ex)
         {
-            Log.e(TAG, "Error loading: " + imageName, ex);
+            Log.e(TAG, "Error loading: " + game.getImageName(), ex);
         }
 
-        gameDetailsNameTextView.setText(name);
-        gameDetailsDescriptionTextView.setText(description);
-        gameDetailsRatingBar.setRating(rating);
+        gameDetailsNameTextView.setText(game.getName());
+        gameDetailsDescriptionTextView.setText(game.getDescription());
+        gameDetailsRatingBar.setRating(game.getRating());
     }
 }

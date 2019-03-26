@@ -29,17 +29,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        deleteDatabase(DBHelper.DATABASE_NAME);
+        // deleteDatabase(DBHelper.DATABASE_NAME);
         db = new DBHelper(this);
 
         // Only need to run this code once to "seed" the database with some initial values (games)
         // This could also be seeded from a JSON data source and put into the database.
-        db.addGame(new Game("League of Legends", "Multiplayer online battle arena", 4.5f, "lol.png"));
+        /*b.addGame(new Game("League of Legends", "Multiplayer online battle arena", 4.5f, "lol.png"));
         db.addGame(new Game("Dark Souls III", "Action role-playing", 4.0f, "ds3.png"));
         db.addGame(new Game("The Division", "Single player experience", 3.5f, "division.png"));
         db.addGame(new Game("Doom FLH", "First person shooter", 2.5f, "doomflh.png"));
         db.addGame(new Game("Battlefield 1", "Single player campaign", 5.0f, "battlefield1.png"));
-        //
+        //*/
 
         gamesList = db.getAllGames();
         gamesListAdapter = new GameListAdapter(this, R.layout.game_list_item, gamesList);
@@ -53,10 +53,7 @@ public class MainActivity extends AppCompatActivity {
             Game selectedGame = (Game) view.getTag();
 
             Intent detailsIntent = new Intent(this, GameDetailsActivity.class);
-            detailsIntent.putExtra("Name", selectedGame.getName());
-            detailsIntent.putExtra("Description", selectedGame.getDescription());
-            detailsIntent.putExtra("Rating", selectedGame.getRating());
-            detailsIntent.putExtra("ImageName", selectedGame.getImageName());
+            detailsIntent.putExtra("SelectedGame", selectedGame);
 
             startActivity(detailsIntent);
     }
